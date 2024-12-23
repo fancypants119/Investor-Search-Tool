@@ -1,10 +1,12 @@
 .investor-card {
+    position: relative;
     border: 1px solid #ddd;
     padding: 1rem;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
+    width: 300px;
   }
   
   .investor-card:hover {
@@ -21,3 +23,32 @@
     margin: 0.5rem 0;
   }
   
+
+.series-container {
+  display: flex;
+  gap: 8px; /* Adjust spacing between tags */
+  margin-top: 8px; /* Add space above the tags */
+}
+
+.series-tag {
+  display: inline-block;
+  padding: 4px 8px;
+  background-color: #e0f7fa; /* Light background color */
+  color: #006064; /* Text color */
+  border: 1px solid #006064; /* Border color */
+  border-radius: 12px; /* Rounded corners */
+  font-size: 12px; /* Font size */
+}
+
+
+
+.proptech-tag {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background-color: blue;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 3px;
+  font-size: 12px;
+}

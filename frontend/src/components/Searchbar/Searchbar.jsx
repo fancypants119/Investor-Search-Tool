@@ -4,6 +4,7 @@
 import { useState } from 'react';
 import "./SearchBar.css";
 import { sectors, fundingStages } from './Datalist/options';
+import { Link } from 'react-router-dom';
 
 const SearchBar = ({ onSearch }) => {
     const [searchCriteria, setSearchCriteria] = useState({
@@ -67,7 +68,12 @@ const SearchBar = ({ onSearch }) => {
         </datalist>
       </div>
 
-      <button onClick={handleSearch} className="search-button">Search</button>
+      <div className="button-container">
+        <button onClick={handleSearch} className="search-button">Search</button>
+        <Link to="/addinvestor">
+      <button className="add-investor-button">Add Investor</button>
+    </Link>
+      </div>
     </div>
   );
 };
