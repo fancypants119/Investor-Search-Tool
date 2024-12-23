@@ -1,0 +1,23 @@
+.investor-card {
+    border: 1px solid #ddd;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .investor-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .investor-card h3 {
+    margin: 0;
+    font-size: 1.25rem;
+  }
+  
+  .investor-card p {
+    margin: 0.5rem 0;
+  }
+  

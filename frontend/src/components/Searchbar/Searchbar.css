@@ -1,0 +1,84 @@
+/* SearchBar.css */
+
+.search-bar-container {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    border-radius: 8px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+  }
+  
+  .name-search-input {
+    width: 100%;
+    max-width: 250px;
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: box-shadow 0.3s ease-in-out;
+  }
+  
+  .funding-search-dropdown {
+    width: 100%;
+    max-width: 230px;
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: box-shadow 0.3s ease-in-out;
+  }
+  
+
+  .sector-search-dropdown{
+    width: 100%;
+    max-width: 230px;
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: box-shadow 0.3s ease-in-out;
+  }
+
+
+  .name-search-input:focus,
+  .sector-search-dropdown:focus,
+  .funding-search-dropdown:focus {
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+    outline: none;
+    border-color: rgba(0, 123, 255, 0.5);
+  }
+  
+  .search-button {
+    padding: 0.8rem 1.5rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+  }
+  
+  .search-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .dropdown-container {
+    position: relative;
+    width: 100%;
+    max-width: 250px;
+  }
+  
+  .search-bar-container {
+    animation: none;
+  }
+
+  
