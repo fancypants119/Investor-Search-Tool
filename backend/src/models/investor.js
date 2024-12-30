@@ -78,6 +78,11 @@ const InvestorSchema = new Schema({
     required: [true, "tech medium field is required"],
   },
 
+  flag: {
+    type: String,
+    required: [true, "tech medium field is required"],
+  },
+
 
 });
 

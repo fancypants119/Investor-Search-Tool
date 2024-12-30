@@ -16,6 +16,31 @@ router.get("/getinvestors", (req, res, next) => {
 });
 
 
+
+router.get("/getinvestor/:id", (req, res, next) => {
+  const { id } = req.params;  
+  
+
+  Investor.findById(id)
+    .then((investor) => {
+      if (!investor) {
+       
+        return res.status(404).send({
+          message: "Investor not found",
+        });
+      }
+     
+      res.send(investor);
+    })
+    .catch((error) => {
+      res.status(400).send({
+        message: "Error fetching investor data",
+        error: error.message,
+      });
+    });
+});
+
+
 router.post("/add-investor", (req, res, next) => {
   Investor.create(req.body)
     .then(() => {

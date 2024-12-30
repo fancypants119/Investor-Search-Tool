@@ -17,11 +17,51 @@ const Home = () => {
     const filteredResults = investors.filter((investor) => {
       return (
         (criteria.investorName === '' || investor.name.toLowerCase().includes(criteria.investorName.toLowerCase())) &&
-        (criteria.sector === '' || investor.sector.includes(criteria.sector)) &&
-        (criteria.fundingStage === '' || investor.series.includes(criteria.fundingStage))
+
+        (criteria.investorFirm === '' || investor.firm.toLowerCase().includes(criteria.investorFirm.toLowerCase())) &&
+
+        (criteria.investorFirm === '' || investor.firm.toLowerCase().includes(criteria.investorFirm.toLowerCase())) &&
+
+        ( !criteria.proptechOnly || investor.proptech_only === true ) &&
+       
+          (criteria.sector.length === 0 ||
+            criteria.sector.some(interest => 
+              investor.sectorsofinterest.some(sectorInterest => sectorInterest.toLowerCase() === interest.toLowerCase())
+            )) &&
+
+          (criteria.fundingStage.length === 0 || 
+            criteria.fundingStage.some(stage => 
+              investor.series.some(investorStage => investorStage.toLowerCase() === stage.toLowerCase())
+            )) &&
+
+            (criteria.techMedium.length === 0 || 
+              criteria.techMedium.some(medium => 
+                investor.tech_medium.some(mediumTech => mediumTech.toLowerCase() === medium.toLowerCase())
+              )) &&
+
+        (criteria.minInvestment === '' || investor.investment_min <= criteria.minInvestment ) &&
+
+        (criteria.basedin.length === 0 || 
+          criteria.basedin.some(location => 
+            typeof location === 'object' && location.name && investor.state.toLowerCase().includes(location.name.toLowerCase())
+          )) &&
+
+
+          (criteria.areaofpreference.length === 0 || 
+            criteria.areaofpreference.some(preferedarea => 
+              investor.geography.some(investorarea => investorarea.toLowerCase() === preferedarea.toLowerCase())
+            )) &&
+
+            (criteria.basedinCity.length === 0 || 
+              criteria.basedinCity.some(bcity => 
+                bcity.toLowerCase() === investor.city.toLowerCase()
+              ))
+
+
       );
     });
     setSearchResults(filteredResults);
+    console.log(filteredResults)
   };
 
   const handleCardClick = (id) => {

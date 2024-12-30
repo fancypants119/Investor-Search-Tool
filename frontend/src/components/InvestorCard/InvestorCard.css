@@ -24,6 +24,22 @@
   }
   
 
+  .investor-name-flag {
+    display: flex;
+    justify-content: space-between;
+  
+  }
+
+  .investor-name-flag h3 {
+    margin: 0; /* Remove default margin */
+  }
+  
+  .investor-name-flag img {
+    width: auto; 
+    height: 16px;
+    object-fit: cover; 
+  }
+
 .series-container {
   display: flex;
   gap: 8px; /* Adjust spacing between tags */
@@ -51,4 +67,9 @@
   padding: 5px 10px;
   border-radius: 3px;
   font-size: 12px;
+}
+
+
+.span-investment-min{
+  font-weight: bold;
 }
