@@ -1,15 +1,11 @@
 import { useEffect, useState } from 'react';
 import SearchBar from '../Searchbar/Searchbar';
-import InvestorCard from '../InvestorCard/InvestorCard';
 import './Home.css';
 
-// const investors = [
-//   { id: 1, name: 'John Doe Ventures', sector: 'Technology', fundingStage: 'Seed' },
-//   { id: 2, name: 'Innovate Fund', sector: 'Healthcare', fundingStage: 'Series A' },
-//   // Add more investor data here
-// ];
 
-const Home = () => {
+const formatNumber = (number) => number.toLocaleString();
+
+const SheetDataHome = () => {
   const [investors, setInvestors] = useState([]); // State to store API data
   const [searchResults, setSearchResults] = useState(investors);
 
@@ -43,7 +39,7 @@ const Home = () => {
 
         (criteria.basedin.length === 0 || 
           criteria.basedin.some(location => 
-            typeof location === 'object' && location.name && investor.state.toLowerCase() === location.name.toLowerCase()
+            typeof location === 'object' && location.name && investor.state.toLowerCase().includes(location.name.toLowerCase())
           )) &&
 
 
@@ -72,11 +68,11 @@ const Home = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch('http://localhost:3000/api/getinvestors');
+        const res = await fetch('http://localhost:3000/api/getinvestorsfromsheet');
         const data = await res.json();
         console.log(data)
-        setInvestors(data); // Store API data in state
-        setSearchResults(data); // Initialize search results with the full list
+        setInvestors(data); 
+        setSearchResults(data); 
       } catch (error) {
         console.error('Error fetching investors:', error);
       }
@@ -89,12 +85,59 @@ const Home = () => {
     <div className="parent-component">
       <SearchBar onSearch={handleSearch} />
       <div className="results-container">
-        {searchResults.map((investor) => (
-          <InvestorCard key={investor._id} investor={investor} onClick={handleCardClick} />
-        ))}
+        <div className="card-container-forsheetdata">
+            {searchResults.map((row, index) => (
+                <div key={index} className="sheetdatacard">
+                         <div className='investor-name-flag'>
+      <h3>{row[3]}</h3>
+      <img src={`https://flagcdn.com/w40/${row[4]}.png`} alt="Flag" />
+      </div>
+
+            
+      <p className="based-in-card-p">
+  <span className="based-in-card">
+    {row[6] && row[14] ? (
+      <>
+        <span style={{ fontSize: '0.9em' }}>{row[6]}</span>, {row[14]}
+      </>
+    ) : (
+      'Location not available'
+    )}
+  </span>
+</p>
+
+
+
+<div>
+      <p>Min Investment: 
+        <span className='span-investment-min'>
+        {formatNumber(row[7])}
+        </span>
+        </p>
+      </div>
+      <div className="series-container">
+        <span className="series-tag">
+          {row[13]}
+        </span>
+  
+    {row[11] && (
+        <div className="proptech-tag">Proptech</div>
+      )}
+    </div>
+
+
+
+                </div>
+            ))}
+
+
+
+
+
+        </div>
       </div>
     </div>
   );
 };
 
-export default Home;
+export default SheetDataHome;

@@ -8,9 +8,10 @@ export const geographyOptions = [
   ];
   
   export const participationOptions = [
-    "Active",
-    "Limited",
-    "Silent"
+    "Co-Lead",
+    "Follow-on",
+    "Lead",
+    "Co-invest"
   ];
   
   export const seriesOptions = [
@@ -30,3 +31,5 @@ export const geographyOptions = [
     "Data Science"
   ];
   
+
+

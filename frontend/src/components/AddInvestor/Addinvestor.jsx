@@ -1,259 +1,509 @@
-import { useState } from "react";
-import { geographyOptions, participationOptions, seriesOptions, techMediumOptions } from "./Datalist/options";
-import "./Addinvestor.css"
+  import { useState } from "react";
+  import { geographyOptions, participationOptions , techMediumOptions } from "./Datalist/options";
 
-const InvestorProfileForm = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    firm: "",
-    video: "",
-    geography: [],
-    city: "",
-    investmentMin: "",
-    investmentMax: "",
-    investmentSweetSpot: "",
-    participation: [],
-    propTechOnly: "no",
-    sectorsOfInterest: [],
-    series: [],
-    state: "",
-    techMedium: []
+  import { sectors, fundingStages, basedIn, basedInCity } from '../Searchbar/Datalist/options'
+
+  import { styled, lighten, darken } from '@mui/material';
+
+
+  import "./Addinvestor.css"
+
+  import { Autocomplete } from '@mui/material';
+  import { TextField } from '@mui/material';
+
+
+  const GroupHeader = styled('div')(({ theme }) => ({
+    position: 'sticky',
+    top: '-8px',
+    padding: '4px 10px',
+    color: theme.palette.primary.main,
+    backgroundColor: lighten(theme.palette.primary.light, 0.85),
+    ...theme.applyStyles('dark', {
+      backgroundColor: darken(theme.palette.primary.main, 0.8),
+    }),
+  }));
+  
+  const GroupItems = styled('ul')({
+    padding: 0,
   });
 
-  const handleChange = (e) => {
-    const { name, value, type, checked, multiple } = e.target;
-    if (type === "checkbox" || type === "radio") {
-      setFormData((prevData) => ({
-        ...prevData,
-        [name]: checked ? value : ""
-      }));
-    } else if (multiple && type === "select-one") {
-      const options = Array.from(e.target.selectedOptions, (option) => option.value);
-      setFormData((prevData) => ({
-        ...prevData,
-        [name]: options
-      }));
-    } else {
-      setFormData((prevData) => ({
-        ...prevData,
-        [name]: value
-      }));
-    }
-  };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(formData);
-  };
 
-  const handleAddTag = (e, field) => {
-    if (e.key === "Enter" && e.target.value) {
-      setFormData((prevData) => ({
-        ...prevData,
-        [field]: [...prevData[field], e.target.value],
-      }));
-      e.target.value = ""; // clear input after adding
-    }
-  };
+  const InvestorProfileForm = () => {
+    const [formData, setFormData] = useState({
+      name: "", // String
+      email: "", // String
+      firm: "", // String
+      video: "", // String
+      geography: [], // Array of strings
+      city: "", // String
+      state: [], // Array of strings
+      investment_min: 0, // Number
+      investment_max: 0, // Number
+      investment_sweet_spot: 0, // Number
+      participation: [], // Array of strings
+      proptech_only: false, // Boolean
+      sectorsofinterest: [], // Array of strings
+      series: [], // Array of strings
+      tech_medium: [], // Array of strings
+      flag: "fr", // String
+    });
 
-  return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Name:
-        <input
-          type="text"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-        />
-      </label>
+    const handleChange = (e) => {
+      const { name, value, type, checked } = e.target;
+    
+      setFormData((prevData) => {
+        if (type === "checkbox" || type === "radio") {
+          return {
+            ...prevData,
+            [name]: checked,
+          };
+        } else if (!isNaN(value) && ["investment_min", "investment_max", "investment_sweet_spot"].includes(name)) {
+          return {
+            ...prevData,
+            [name]: Number(value), // Convert to number
+          };
+        } else {
+          return {
+            ...prevData,
+            [name]: value, // Handle as string
+          };
+        }
+      });
+    };
+    
 
-      <label>
-        Email:
-        <input
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-        />
-      </label>
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+    
+      try {
+        const response = await fetch("http://localhost:3000/api/add-investor", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData), // Convert formData to JSON
+        });
+    
+        if (!response.ok) {
+          throw new Error(`Error: ${response.statusText}`);
+        }
+    
+        const result = await response.text(); // Read response text (success message)
+        alert(result); // Notify user of success
+        setFormData({
+          name: "",
+          email: "",
+          firm: "",
+          video: "",
+          geography: [],
+          city: "",
+          investment_min: null,
+          investment_max: null,
+          investment_sweet_spot: null,
+          participation: [],
+          proptech_only: false,
+          sectorsofinterest: [],
+          series: [],
+          state: "",
+          tech_medium: [],
+        }); // Reset form
+      } catch (error) {
+        console.error("Error adding investor:", error);
+        alert("Failed to add investor. Please try again.");
+      }
+    };
 
-      <label>
-        Firm:
-        <input
-          type="text"
-          name="firm"
-          value={formData.firm}
-          onChange={handleChange}
-        />
-      </label>
+    return (
+      <form 
+      className="investor-form"
+      onSubmit={handleSubmit}>
 
-      <label>
-        Video:
-        <input
-          type="text"
-          name="video"
-          value={formData.video}
-          onChange={handleChange}
-        />
-      </label>
+        <label
+        className="label-investor-name"
+        >
+          Name:
 
-      <label>
-        Geography:
-        <select
-          name="geography"
+  <TextField 
+  className="input-investor-name"
+              id="name"
+              type="text"
+            placeholder="Investor Name"
+            variant="outlined"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            sx={{
+            }}
+          />
+
+        </label>
+
+        <label
+        className="label-investor-email"
+        >
+          Email:
+  <TextField 
+  className="input-investor-email"
+              id="email"
+              type="text"
+            placeholder="Investor Email"
+            variant="outlined"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            sx={{
+            }}
+          />
+
+
+
+
+
+        </label>
+
+        <label
+        className="label-investor-firm"
+        >
+          Firm:
+  <TextField 
+  
+className="input-investor-firm"
+              id="firm"
+              type="text"
+            placeholder="Investor Firm"
+            variant="outlined"
+            name="firm"
+            value={formData.firm}
+            onChange={handleChange}
+            sx={{
+            }}
+          />
+
+
+
+        </label>
+
+        <label
+        className="label-investor-video"
+        >
+          Video:
+
+          <TextField 
+          className="input-investor-video"
+              id="video"
+              type="text"
+            placeholder="Intro Video"
+            variant="outlined"
+            name="video"
+            value={formData.video}
+            onChange={handleChange}
+            sx={{
+            }}
+          />
+        </label>
+
+        <label
+        className="label-investor-geo"
+        >
+          Geography:
+
+          <Autocomplete 
+             className="input-investor-geo"
+          id="geography"
           multiple
+          options={geographyOptions}
+          getOptionLabel={(option) => option}
+          filterSelectedOptions
           value={formData.geography}
-          onChange={handleChange}
-        >
-          {geographyOptions.map((geo, index) => (
-            <option key={index} value={geo}>
-              {geo}
-            </option>
-          ))}
-        </select>
-      </label>
+          onChange={(event, newValue) => {
+            setFormData({ ...formData, geography: newValue });
+          }}
+                renderInput={(params) => (
+                <TextField
+                  {...params}
+                  placeholder='Geography'
+                  sx={{ 
+                      width: 200,
+                      }} 
+                />
+          )}
+          />
+        </label>
 
-      <label>
-        City:
-        <input
-          type="text"
-          name="city"
+        <label
+        className="label-investor-city"
+        >
+          City:
+
+
+
+          <Autocomplete id="city"
+          className="input-investor-city"
+          options={basedInCity}
+          getOptionLabel={(option) => option}
+          filterSelectedOptions
           value={formData.city}
-          onChange={handleChange}
-        />
-      </label>
+          onChange={(event, newValue) => {
+            setFormData({ ...formData, city: newValue });
+          }}
+                renderInput={(params) => (
+                <TextField
+                  {...params}
+                  placeholder='City'
+                  sx={{ 
+                      width: 200,
+                      }} 
+                />
+          )}
+          />
+        </label>
 
-      <label>
-        Investment Min:
-        <input
-          type="number"
-          name="investmentMin"
-          value={formData.investmentMin}
-          onChange={handleChange}
-        />
-      </label>
+        <label
+        className="label-investor-min"
+        >
+          Investment Min:
 
-      <label>
-        Investment Max:
-        <input
-          type="number"
-          name="investmentMax"
-          value={formData.investmentMax}
-          onChange={handleChange}
-        />
-      </label>
 
-      <label>
-        Investment Sweet Spot:
-        <input
-          type="text"
-          name="investmentSweetSpot"
-          value={formData.investmentSweetSpot}
-          onChange={handleChange}
-        />
-      </label>
+          <TextField 
+          className="input-investor-min"
+              id="investment_min"
+              type="text"
+            placeholder="Investment Min"
+            variant="outlined"
+            name="investment_min"
+            value={formData.investment_min}
+            onChange={handleChange}
+            sx={{
+            }}
+          />
 
-      <label>
-        Participation:
-        <select
-          name="participation"
+
+        </label>
+
+        <label
+        className="label-investor-max"
+        >
+          Investment Max:
+          <TextField
+          className="input-investor-max"
+          id="investment_max"
+              
+              type="text"
+            placeholder="Investment Max"
+            variant="outlined"
+            name="investment_max"
+            value={formData.investment_max}
+            onChange={handleChange}
+            sx={{
+            }}
+          />
+        </label>
+
+        <label
+        className="label-investor-sweetspot"
+        >
+          Investment Sweet Spot:
+
+  <TextField 
+              id="investment_sweet_spot"
+              className="input-investor-sweetspot"
+              type="text"
+            placeholder="Investment Sweet Spot"
+            variant="outlined"
+            name="investment_sweet_spot"
+            value={formData.investment_sweet_spot}
+            onChange={handleChange}
+            sx={{
+            }}
+          />
+        </label>
+
+        <label
+        className="label-investor-part"
+        >
+          Participation:
+
+          <Autocomplete id="participation"
+          className="input-investor-part"
           multiple
+          options={participationOptions}
+          getOptionLabel={(option) => option}
+          filterSelectedOptions
           value={formData.participation}
-          onChange={handleChange}
+          onChange={(event, newValue) => {
+            setFormData({ ...formData, participation: newValue });
+          }}
+                renderInput={(params) => (
+                <TextField
+                  {...params}
+                  placeholder='Participation'
+                  sx={{ 
+                      width: 200,
+                      }} 
+                />
+          )}
+          />
+        </label>
+
+        <label
+        className="label-investor-proptech"
         >
-          {participationOptions.map((option, index) => (
-            <option key={index} value={option}>
-              {option}
-            </option>
-          ))}
-        </select>
-      </label>
+          PropTech-Only:
+          <label>
+  <input
+    type="radio"
+    name="proptech_only"
+    value="true"
+    checked={formData.proptech_only === true}
+    onChange={handleChange}
+  />
+  Yes
+</label>
 
-      <label>
-        PropTech-Only:
-        <label>
-          <input
-            type="radio"
-            name="propTechOnly"
-            value="yes"
-            checked={formData.propTechOnly === "yes"}
-            onChange={handleChange}
-          />
-          Yes
+<label>
+  <input
+    type="radio"
+    name="proptech_only"
+    value="false"
+    checked={formData.proptech_only === false}
+    onChange={handleChange}
+  />
+  No
+</label>
+
         </label>
-        <label>
-          <input
-            type="radio"
-            name="propTechOnly"
-            value="no"
-            checked={formData.propTechOnly === "no"}
-            onChange={handleChange}
-          />
-          No
-        </label>
-      </label>
 
-      <label>
-        Sectors of Interest:
-        <input
-          type="text"
-          onKeyDown={(e) => handleAddTag(e, "sectorsOfInterest")}
-          placeholder="Press Enter to add"
-        />
-        <ul>
-          {formData.sectorsOfInterest.map((sector, index) => (
-            <li key={index}>{sector}</li>
-          ))}
-        </ul>
-      </label>
+        <label
+        className="label-investor-sectors"
+        >
+          Sectors of Interest:
 
-      <label>
-        Series:
-        <select
-          name="series"
+          
+          <Autocomplete id="sectorsofinterest"
+          className="input-investor-sectors"
           multiple
+          options={sectors}
+          getOptionLabel={(option) => option}
+          filterSelectedOptions
+          value={formData.sectorsofinterest}
+          onChange={(event, newValue) => {
+            setFormData({ ...formData, sectorsofinterest: newValue });
+          }}
+                renderInput={(params) => (
+                <TextField
+                  {...params}
+                  placeholder='Sectors Of Interest'
+                  sx={{ 
+                      width: 200,
+                      }} 
+                />
+          )}
+          />
+        </label>
+
+        <label
+        className="label-investor-series"
+        >
+          Series:
+
+          <Autocomplete id="series"
+          className="input-investor-series"
+          multiple
+          options={fundingStages}
+          getOptionLabel={(option) => option}
+          filterSelectedOptions
           value={formData.series}
-          onChange={handleChange}
-        >
-          {seriesOptions.map((option, index) => (
-            <option key={index} value={option}>
-              {option}
-            </option>
-          ))}
-        </select>
-      </label>
+          onChange={(event, newValue) => {
+            setFormData({ ...formData, series: newValue });
+          }}
+                renderInput={(params) => (
+                <TextField
+                  {...params}
+                  placeholder='Series'
+                  sx={{ 
+                      width: 200,
+                      }} 
+                />
+          )}
+          />
+        </label>
 
-      <label>
-        State:
-        <input
-          type="text"
-          name="state"
-          value={formData.state}
-          onChange={handleChange}
+        <label
+        className="label-investor-state"
+        >
+          State / Country
+
+          <Autocomplete 
+           className="input-investor-state"
+          
+          id="state"
+              options={basedIn.sort((a, b) => {
+          if (a.type !== b.type) {
+            return a.type === 'state' ? -1 : 1; 
+          }
+          return a.name.localeCompare(b.name);
+        })}
+
+        groupBy={(option) => option.type}
+        getOptionLabel={(option) => (option?.name || '')}
+        value={basedIn.find((option) => option.name === formData.state) || null}
+        onChange={(event, newValue) => {
+          setFormData({ ...formData, 
+            state: newValue ? newValue.name : "",
+            flag: newValue ? newValue.flag : "",
+           });
+          console.log(formData.state)
+        }}
+        isOptionEqualToValue={(option, value) => option.name === value.name}
+          renderInput={(params) => (
+          <TextField
+          {...params}
+          placeholder="Based in (State/Country)"
+              sx={{ 
+                  width: 250,
+       }} 
+            />
+        )}
+        renderGroup={(params) => (
+          <li key={params.key}>
+            <GroupHeader>{params.group}</GroupHeader>
+            <GroupItems>{params.children}</GroupItems>
+          </li>
+        )}
         />
-      </label>
+        </label>
 
-      <label>
-        Tech Medium:
-        <select
-          name="techMedium"
-          multiple
-          value={formData.techMedium}
-          onChange={handleChange}
+        <label
+        className="label-investor-techmedium"
         >
-          {techMediumOptions.map((option, index) => (
-            <option key={index} value={option}>
-              {option}
-            </option>
-          ))}
-        </select>
-      </label>
+          Tech Medium:
+          <Autocomplete
+          className="input-investor-techmedium"
+        multiple
+        id="tech_medium"
+        options={techMediumOptions}
+        getOptionLabel={(option) => option}
+        filterSelectedOptions
+        value={formData.tech_medium}
+        onChange={(event, newValue) => {
+        setFormData({ ...formData, tech_medium: newValue });
+        }}
+              renderInput={(params) => (
+              <TextField
+                {...params}
+                placeholder='Tech Medium'
+                sx={{ 
+                    width: 200,
+                    }} 
+              />
+        )}
+        />
+        </label>
 
-      <button type="submit">Submit</button>
-    </form>
-  );
-};
+        <button type="submit">Submit</button>
+      </form>
+    );
+  };
 
-export default InvestorProfileForm;
+  export default InvestorProfileForm;

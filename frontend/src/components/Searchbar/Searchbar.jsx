@@ -80,6 +80,7 @@ const SearchBar = ({ onSearch }) => {
 
         <Autocomplete id="funding-stage"
         multiple
+        limitTags={2}
         options={fundingStages}
         getOptionLabel={(option) => option}
         filterSelectedOptions
@@ -92,7 +93,7 @@ const SearchBar = ({ onSearch }) => {
           {...params}
           placeholder="Funding Stage"
               sx={{ 
-                  width: 200,
+                  width: 300,
        }} 
             />
         )}
@@ -102,6 +103,7 @@ const SearchBar = ({ onSearch }) => {
      
       <Autocomplete id="sector"
         multiple
+        limitTags={1}
         options={sectors}
         getOptionLabel={(option) => option}
         filterSelectedOptions
@@ -114,7 +116,7 @@ const SearchBar = ({ onSearch }) => {
                 {...params}
                 placeholder='Sector'
                 sx={{ 
-                    width: 200,
+                    width: 250,
                     }} 
               />
         )}
@@ -133,6 +135,7 @@ const SearchBar = ({ onSearch }) => {
 
         <Autocomplete id="based-in"
         multiple
+        limitTags={2}
         options={basedIn.sort((a, b) => {
           if (a.type !== b.type) {
             return a.type === 'state' ? -1 : 1; 
@@ -239,6 +242,7 @@ const SearchBar = ({ onSearch }) => {
 
 <Autocomplete
         multiple
+        limitTags={2}
         id="areaofpreference"
         options={areaofpreference}
         getOptionLabel={(option) => option}
@@ -260,6 +264,7 @@ const SearchBar = ({ onSearch }) => {
 
 <Autocomplete
         multiple
+        limitTags={2}
         id="techMedium"
         options={techMedium}
         getOptionLabel={(option) => option}
@@ -282,6 +287,7 @@ const SearchBar = ({ onSearch }) => {
 
 <Autocomplete
         multiple
+        limitTags={2}
         id="areaofpreference"
         options={basedInCity}
         getOptionLabel={(option) => option}

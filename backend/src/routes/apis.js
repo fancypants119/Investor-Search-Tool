@@ -1,7 +1,7 @@
 const express = require("express");
 const Investor = require("../models/investor.js")
 const router = express.Router();
-
+const { fetchSheetData } = require("../gsheets.js");
 
 router.get("/getinvestors", (req, res, next) => {
     Investor.find({})
@@ -48,6 +48,20 @@ router.post("/add-investor", (req, res, next) => {
     })
     .catch(next);
 });
+
+router.get("/getinvestorsfromsheet", async (req, res, next) => {
+  try {
+    const data = await fetchSheetData('1kmKsFRQOSD2Fntiu4PgXGYnHfaP_zQX_-8CNSvpJT3c', 'Sheet1!A1:P'); 
+    res.json(data);
+} catch (err) {
+    res.status(500).send(err.message);
+}
+});
+
+
+
+
+
 
 
 module.exports = router;

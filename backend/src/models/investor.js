@@ -10,7 +10,6 @@ const InvestorSchema = new Schema({
 
   email: {
     type: String,
-    required: [true, "Email field is required"],
   },
  
   firm: {
@@ -30,32 +29,30 @@ const InvestorSchema = new Schema({
 
   city: {
     type: String,
-    required: [true, "video field is required"],
+
   },
 
   state: {
     type: String,
-    required: [true, "video field is required"],
   },
 
   investment_min: {
     type: Number,
-    required: [true, "min investment field is required"],
+
   },
 
   investment_max: {
     type: Number,
-    required: [true, "max investment field is required"],
+    
   },
 
   investment_sweet_spot: {
     type: Number,
-    required: [true, "investment sweet spot field is required"],
+
   },
 
   participation: {
     type: [String],
-    required: [true, "Participation field is required"],
   },
 
   proptech_only: {

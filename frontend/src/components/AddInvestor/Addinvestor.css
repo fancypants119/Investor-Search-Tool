@@ -1,78 +1,133 @@
-/* General Form Styling */
-form {
-    max-width: 800px;
-    margin: 0 auto;
+/* General Styles */
+/* body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f7f7f7;
+    color: #333;
+  } */
+  
+  .investor-form {
+    max-width: 600px;
+    margin: 30px auto;
     padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
+    background-color: #fff;
+    border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
   
-  label {
+  .investor-form label {
     display: block;
-    font-size: 14px;
-    font-weight: bold;
-    margin-top: 15px;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+    color: #555;
   }
   
-  input, select {
+  .investor-form input,
+  .investor-form .MuiAutocomplete-root,
+  .investor-form .MuiTextField-root {
     width: 100%;
-    padding: 8px;
-    margin: 8px 0;
+    margin-top: 5px;
+  }
+  
+  /* .investor-form .MuiTextField-root input {
+    padding: 10px;
+    font-size: 1rem;
     border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  input[type="text"],
-  input[type="email"],
-  input[type="number"],
-  select {
-    font-size: 14px;
-  }
-  
-
-  
-  ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  /* ul li {
-    background-color: #f1f1f1;
-    display: inline-block;
-    padding: 5px 10px;
-    margin: 5px;
-    border-radius: 20px;
-    font-size: 14px;
+    border-radius: 5px;
+    outline: none;
   } */
   
-  input[type="text"] {
-    width: 80%;
+  /* .investor-form .MuiTextField-root input:focus {
+    border-color: #007BFF;
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.6);
+  } */
+  
+  .investor-form .MuiAutocomplete-root {
+    margin-top: 5px;
+  }
+  
+  .investor-form button[type="submit"] {
+    width: 100%;
+    padding: 10px 15px;
+    background-color: #007BFF;
+    color: #fff;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .investor-form button[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Specific Input Classes */
+  .input-investor-name,
+  .input-investor-email,
+  .input-investor-firm,
+  .input-investor-video,
+  .input-investor-min,
+  .input-investor-max,
+  .input-investor-sweetspot {
+    padding: 10px;
+    font-size: 1rem;
+  }
+  
+  .label-investor-name,
+  .label-investor-email,
+  .label-investor-firm,
+  .label-investor-video,
+  .label-investor-geo,
+  .label-investor-city,
+  .label-investor-min,
+  .label-investor-max,
+  .label-investor-sweetspot,
+  .label-investor-part,
+  .label-investor-proptech,
+  .label-investor-sectors,
+  .label-investor-series,
+  .label-investor-state,
+  .label-investor-techmedium {
+    font-weight: bold;
+  }
+  
+  .label-investor-part label {
     display: inline-block;
+    margin-right: 15px;
+    font-weight: normal;
   }
   
-  input[type="text"]:focus {
-    border-color: #007bff;
+  .input-investor-proptechyes,
+  .input-investor-proptechno {
+    margin-right: 5px;
   }
   
-  input[type="radio"] {
-    margin-right: 10px;
+  /* Group Header Styling */
+  .MuiAutocomplete-groupLabel {
+    font-weight: bold;
+    font-size: 0.9rem;
+    color: #333;
+    background-color: #e0e0e0;
+    padding: 5px 10px;
   }
   
-  /* Styling for the Tag Inputs */
-  input[type="text"]:focus + ul li {
-    border-color: #007bff;
+  .MuiAutocomplete-groupUl {
+    padding: 0;
+    margin: 0;
   }
   
-  select[multiple] {
-    height: 150px;
-    padding: 5px;
-    border: 1px solid #ccc;
-  }
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .investor-form {
+      padding: 15px;
+    }
   
-  /* Error or Warning Message */
-  .error {
-    color: red;
-    font-size: 12px;
+    .MuiTextField-root input,
+    .MuiAutocomplete-root,
+    button[type="submit"] {
+      font-size: 0.9rem;
+    }
   }
   

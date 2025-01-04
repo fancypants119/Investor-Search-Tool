@@ -9,7 +9,6 @@ const routes = require("./src/routes/apis.js")
 
 connectDB()
 .then(() => {
-    console.log("Connected to MongoDB");
     console.log("Starting server");
     const corsConfig = {
       credentials: true,

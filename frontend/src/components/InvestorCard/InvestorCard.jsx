@@ -40,11 +40,12 @@ const InvestorCard = ({ investor }) => {
 </p>
 
       <div>
-      <p>Min Investment: 
-        <span className='span-investment-min'>
-        ${formatNumber(investor.investment_min)}
-        </span>
-        </p>
+      <p>
+  Min Investment: 
+  <span className='span-investment-min'>
+    {investor.investment_min ? `$${formatNumber(investor.investment_min)}` : "NA"}
+  </span>
+</p>
       </div>
       <div className="series-container">
       {investor.series.map((item, index) => (
