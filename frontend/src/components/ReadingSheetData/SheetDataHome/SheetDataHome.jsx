@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import SearchBar from '../Searchbar/Searchbar';
-import './Home.css';
+import SearchBar from '../../Searchbar/Searchbar';
+import './SheetDataHome.css';
 
 
 const formatNumber = (number) => number.toLocaleString();
@@ -62,7 +62,7 @@ const SheetDataHome = () => {
 
   const handleCardClick = (id) => {
     // Navigate to investor profile (replace with actual routing logic)
-    window.location.href = `/investor/${id}`;
+    window.location.href = `/investorfromsheet/${id}`;
   };
 
   useEffect(() => {
@@ -82,20 +82,27 @@ const SheetDataHome = () => {
 
 
   return (
-    <div className="parent-component">
+    <div className="sheet-parent-component">
       <SearchBar onSearch={handleSearch} />
-      <div className="results-container">
+      <div className="sheet-results-container">
+
         <div className="card-container-forsheetdata">
+
             {searchResults.map((row, index) => (
-                <div key={index} className="sheetdatacard">
+                
+                <div 
+                key={index} 
+                className="sheetdatacard"
+                onClick={handleCardClick}
+                >
                          <div className='investor-name-flag'>
       <h3>{row[3]}</h3>
-      <img src={`https://flagcdn.com/w40/${row[4]}.png`} alt="Flag" />
+      <img src={`https://flagcdn.com/w40/${row[16]}.png`} alt="Flag" />
       </div>
 
             
-      <p className="based-in-card-p">
-  <span className="based-in-card">
+      <p className="sheet-based-in-card-p">
+  <span className="sheet-based-in-card">
     {row[6] && row[14] ? (
       <>
         <span style={{ fontSize: '0.9em' }}>{row[6]}</span>, {row[14]}
@@ -110,19 +117,21 @@ const SheetDataHome = () => {
 
 <div>
       <p>Min Investment: 
-        <span className='span-investment-min'>
+        <span className='sheet-span-investment-min'>
         {formatNumber(row[7])}
         </span>
         </p>
       </div>
-      <div className="series-container">
-        <span className="series-tag">
+      <div className="sheet-series-container">
+        <span className="sheet-series-tag">
           {row[13]}
         </span>
   
-    {row[11] && (
-        <div className="proptech-tag">Proptech</div>
-      )}
+        {row[11] === "Yes" && (
+  <div className="sheet-proptech-tag">Proptech</div>
+)}
+
+
     </div>
 
 

@@ -133,38 +133,25 @@ const SearchBar = ({ onSearch }) => {
           }}
         />
 
-        <Autocomplete id="based-in"
+<Autocomplete
         multiple
         limitTags={2}
-        options={basedIn.sort((a, b) => {
-          if (a.type !== b.type) {
-            return a.type === 'state' ? -1 : 1; 
-          }
-          return a.name.localeCompare(b.name);
-        })}
-
-        groupBy={(option) => option.type}
-        getOptionLabel={(option) => option.name}
+        id="areaofpreference"
+        options={areaofpreference}
+        getOptionLabel={(option) => option}
         filterSelectedOptions
-        value={searchCriteria.basedin}
+        value={searchCriteria.areaofpreference}
         onChange={(event, newValue) => {
-        setSearchCriteria({ ...searchCriteria, basedin: newValue });
-        console.log(newValue)
-      }}
-          renderInput={(params) => (
-          <TextField
-          {...params}
-          placeholder="Based in (State/Country)"
-              sx={{ 
-                  width: 250,
-       }} 
-            />
-        )}
-        renderGroup={(params) => (
-          <li key={params.key}>
-            <GroupHeader>{params.group}</GroupHeader>
-            <GroupItems>{params.children}</GroupItems>
-          </li>
+        setSearchCriteria({ ...searchCriteria, areaofpreference: newValue });
+        }}
+              renderInput={(params) => (
+              <TextField
+                {...params}
+                placeholder='Area of Preference'
+                sx={{ 
+                    width: 200,
+                    }} 
+              />
         )}
         />
 
@@ -240,25 +227,38 @@ const SearchBar = ({ onSearch }) => {
         />
 
 
-<Autocomplete
+<Autocomplete id="based-in"
         multiple
         limitTags={2}
-        id="areaofpreference"
-        options={areaofpreference}
-        getOptionLabel={(option) => option}
+        options={basedIn.sort((a, b) => {
+          if (a.type !== b.type) {
+            return a.type === 'state' ? -1 : 1; 
+          }
+          return a.name.localeCompare(b.name);
+        })}
+
+        groupBy={(option) => option.type}
+        getOptionLabel={(option) => option.name}
         filterSelectedOptions
-        value={searchCriteria.areaofpreference}
+        value={searchCriteria.basedin}
         onChange={(event, newValue) => {
-        setSearchCriteria({ ...searchCriteria, areaofpreference: newValue });
-        }}
-              renderInput={(params) => (
-              <TextField
-                {...params}
-                placeholder='Area of Preference'
-                sx={{ 
-                    width: 200,
-                    }} 
-              />
+        setSearchCriteria({ ...searchCriteria, basedin: newValue });
+        console.log(newValue)
+      }}
+          renderInput={(params) => (
+          <TextField
+          {...params}
+          placeholder="Based in (State/Country)"
+              sx={{ 
+                  width: 250,
+       }} 
+            />
+        )}
+        renderGroup={(params) => (
+          <li key={params.key}>
+            <GroupHeader>{params.group}</GroupHeader>
+            <GroupItems>{params.children}</GroupItems>
+          </li>
         )}
         />
 

@@ -1,0 +1,132 @@
+/* General Styling */
+.investor-profile {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .profile-header {
+    text-align: center;
+  }
+  
+  .profile-header h2 {
+    font-size: 28px;
+    margin-bottom: 8px;
+  }
+  
+  .profile-header p {
+    font-size: 20px;
+    color: #555;
+  }
+  
+  .investor-location p {
+    color: #777;
+    font-size: 16px;
+  }
+  
+  .view-video-btn {
+    background-color: #0073e6;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 15px;
+  }
+  
+  .view-video-btn:hover {
+    background-color: #005bb5;
+  }
+  
+  .investor-details {
+    margin-top: 40px;
+  }
+  
+  .section-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 12px;
+    color: #333;
+  }
+  
+  .investment-info,
+  .preferences {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .investment-range, .investment-sweet-spot {
+    width: 45%;
+  }
+  
+  .investment-range h4, .investment-sweet-spot h4 {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .investment-range p, .investment-sweet-spot p {
+    font-size: 16px;
+    color: #555;
+  }
+  
+  .participation-info {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  
+  .role-tag {
+    background-color: #e0f7fa;
+    color: #00796b;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+  }
+  
+  .geography, .sectors, .tech-medium {
+    width: 30%;
+  }
+  
+  .geography h4, .sectors h4, .tech-medium h4 {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .geography p, .sectors p, .tech-medium p {
+    font-size: 16px;
+    color: #555;
+  }
+  
+  .series-info {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  
+  .profile-series-tag {
+    background-color: #e3f2fd;
+    color: #0277bd;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+  }
+  
+  .inprofile-proptech-tag {
+    display: inline-block;
+    background-color: blue;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    margin-top: 10px;
+  }
+  

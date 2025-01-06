@@ -51,7 +51,7 @@ router.post("/add-investor", (req, res, next) => {
 
 router.get("/getinvestorsfromsheet", async (req, res, next) => {
   try {
-    const data = await fetchSheetData('1kmKsFRQOSD2Fntiu4PgXGYnHfaP_zQX_-8CNSvpJT3c', 'Sheet1!A1:P'); 
+    const data = await fetchSheetData('1kmKsFRQOSD2Fntiu4PgXGYnHfaP_zQX_-8CNSvpJT3c', 'Sheet1!A1:Q'); 
     res.json(data);
 } catch (err) {
     res.status(500).send(err.message);
